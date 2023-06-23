@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.springboot.mapper.RoomMapper">
+
+    <resultMap id="BaseResultMap" type="com.qfedu.springboot.entity.Room">
+            <id property="roomId" column="room_id" jdbcType="INTEGER"/>
+            <result property="rid" column="rid" jdbcType="INTEGER"/>
+            <result property="buildingNo" column="building_no" jdbcType="VARCHAR"/>
+            <result property="unitNo" column="unit_no" jdbcType="VARCHAR"/>
+            <result property="roomNo" column="room_no" jdbcType="VARCHAR"/>
+            <result property="roomType" column="room_type" jdbcType="VARCHAR"/>
+            <result property="roomDirection" column="room_direction" jdbcType="VARCHAR"/>
+            <result property="rentFee" column="rent_fee" jdbcType="DOUBLE"/>
+            <result property="propertyFee" column="property_fee" jdbcType="DOUBLE"/>
+            <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
+            <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+            <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+    </resultMap>
+
+    <sql id="Base_Column_List">
+        room_id,rid,building_no,
+        unit_no,room_no,room_type,
+        room_direction,rent_fee,property_fee,
+        create_time,update_time,delete_flag
+    </sql>
+<!--    添加房间-->
+    <insert id="addRoom">
+        insert into room (building_no,unit_no,room_no,room_type,room_direction,rent_fee,property_fee,create_time,delete_flag)
+        values (#{buildingNo},#{unitNo},#{roomNo},#{roomType},#{roomDirection},#{rentFee},#{propertyFee},#{createTime},#{deleteFlag})
+    </insert>
+    <update id="deleteRoom">
+        update room
+        set delete_flag=0 where room_id = #{roomId}
+
+    </update>
+    <update id="updataRoom">
+        update room
+        <set>
+            <if test="buildingNo!=null and buildingNo!=''">
+                building_no=#{buildingNo},
+            </if>
+            <if test="unitNo!=null and unitNo!=''">
+                unit_no=#{unitNo},
+            </if>
+            <if test="roomNo!=null and roomNo!= ''">
+                room_no=#{roomNo},
+            </if>
+            <if test="roomType!=null and roomType!=''">
+                room_type=#{roomType},
+            </if>
+            <if test="roomDirection!=null and roomDirection!=''">
+                room_direction=#{roomDirection},
+            </if>
+            <if test="rentFee!=null and rentFee!= ''">
+                rent_fee=#{rentFee},
+            </if>
+            <if test="propertyFee!=null and propertyFee!= ''">
+                property_fee=#{propertyFee},
+            </if>
+            <if test="updateTime!=null">
+                update_time=#{updateTime},
+            </if>
+        </set>
+        where room_id = #{roomId}
+    </update>
+    <!--    查询房间的总数-->
+    <select id="getTotal" resultType="java.lang.Integer">
+        select count(*)
+        from room where delete_flag = 1
+    </select>
+<!--    添加房间-->
+    <select id="getRoomPage" resultMap="BaseResultMap">
+        select *
+        from room where delete_flag = 1 limit #{offset},#{size}
+    </select>
+    <select id="getRoomById" resultMap="BaseResultMap">
+        select *
+            from room where room_id = #{roomId} and delete_flag = 1
+    </select>
+
+
+</mapper>
