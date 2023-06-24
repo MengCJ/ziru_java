@@ -48,6 +48,9 @@
         </set>
         where id=#{id};
     </update>
+    <update id="deBlockedUser">
+        update user set enabled=true where id=#{id}
+    </update>
     <select id="loadUserByUsername"
             resultType="com.qfedu.springboot.entity.User">
         select *

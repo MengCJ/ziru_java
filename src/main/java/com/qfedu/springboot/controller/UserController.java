@@ -41,4 +41,9 @@ public class UserController {
     public RespBean updateUser(@RequestBody User user){
         return userService.updateUser(user);
     }
+
+    @PutMapping("/{id}")
+    public RespBean deBlockedUser(@PathVariable Integer id) {
+        return userService.deBlockedUser(id);
+    }
 }

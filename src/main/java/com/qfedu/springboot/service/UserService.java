@@ -65,6 +65,15 @@ public class UserService implements UserDetailsService {
         }
         return RespBean.ok("查询成功",userById);
     }
+
+    public RespBean deBlockedUser(Integer id) {
+        User userById = userMapper.getUserById(id);
+        if(userById == null) {
+            return RespBean.error("用户不存在");
+        }
+        int result = userMapper.deBlockedUser(id);
+        return result == 1 ? RespBean.ok("修改权限成功") : RespBean.error("修改权限失败");
+    }
 }
 
 

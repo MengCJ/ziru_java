@@ -25,4 +25,5 @@ public interface UserMapper {
 
     int updateUser(User user);
 
+    int deBlockedUser(Integer id);
 }
