@@ -52,7 +52,7 @@ public class ResidenceService {
     }
 
     public RespBean putResidence(Residence residence) {
-        residence.setCreateTime(new Date());
+        residence.setUpdateTime(new Date());
         int result = residenceMapper.putResidence(residence);
         return result==1?RespBean.ok("更新成功"):RespBean.error("添加失败");
 

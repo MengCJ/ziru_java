@@ -64,7 +64,7 @@ public class Residence implements Serializable {
      * 创建时间
      */
     @ExcelProperty("记录创建时间")
-    @DateTimeFormat("yyyy-MM-dd日")
+    @DateTimeFormat("yyyy-MM-dd")
     private Date createTime;
 
     /**

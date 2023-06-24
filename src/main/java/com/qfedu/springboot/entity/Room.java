@@ -63,10 +63,14 @@ public class Room implements Serializable {
      */
     private Date updateTime;
 
+
+
     /**
      * 
      */
     private Integer deleteFlag;
+
+    private Residence residence;
 
     private static final long serialVersionUID = 1L;
 
@@ -304,5 +308,14 @@ public class Room implements Serializable {
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();
+    }
+
+
+    public Residence getResidence() {
+        return residence;
+    }
+
+    public void setResidence(Residence residence) {
+        this.residence = residence;
     }
 }

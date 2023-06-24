@@ -22,4 +22,6 @@ public class RespPageBean {
     public void setTotal(Integer total) {
         this.total = total;
     }
+
+
 }

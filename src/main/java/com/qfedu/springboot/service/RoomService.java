@@ -19,6 +19,7 @@ public class RoomService {
     public RespBean addRoom(Room room){
         room.setCreateTime(new Date());
         room.setDeleteFlag(Contants.UN_DELETE_FLAG);
+
          int result = roomMapper.addRoom(room);
         return  result==1?RespBean.ok("添加成功"):RespBean.error("添加失败");
     }
@@ -54,8 +55,6 @@ public class RoomService {
     }
 
 
-//    public RespBean updataRoom(Integer roomId) {
-//
-//        return null;
-//    }
+
+
 }

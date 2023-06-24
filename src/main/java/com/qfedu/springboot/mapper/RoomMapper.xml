@@ -17,6 +17,10 @@
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+            <association property="residence" javaType="com.qfedu.springboot.entity.Residence">
+                    <result property="rid" column="rid"></result>
+                    <result property="name" column="name"></result>
+            </association>
     </resultMap>
 
     <sql id="Base_Column_List">
@@ -72,8 +76,8 @@
     </select>
 <!--    添加房间-->
     <select id="getRoomPage" resultMap="BaseResultMap">
-        select *
-        from room where delete_flag = 1 limit #{offset},#{size}
+        select a.* ,b.name
+        from room a ,residence b where a.rid = b.rid and a.delete_flag = 1 limit #{offset},#{size}
     </select>
     <select id="getRoomById" resultMap="BaseResultMap">
         select *
