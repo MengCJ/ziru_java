@@ -21,6 +21,12 @@ public class UserController {
             String name){
         return userService.getUserByPage(page,size,name);
     }
+
+    @GetMapping("/{id}")
+    public RespBean getUserById(@PathVariable Integer id){
+        return userService.getUserById(id);
+    }
+
     @PostMapping
     public RespBean addUser(@RequestBody User user) {
         return userService.addUser(user);

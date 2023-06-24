@@ -46,7 +46,7 @@
                 remark=#{remark},
             </if>
         </set>
-        where id=#{id} and enabled=true
+        where id=#{id};
     </update>
     <select id="loadUserByUsername"
             resultType="com.qfedu.springboot.entity.User">
@@ -56,23 +56,23 @@
     </select>
     <select id="getTotal" resultType="java.lang.Integer">
         select count(*)
-        from user where enabled=true
+        from user where id is not null
         <if test="name!=null and name!=''">
-            and name like concat('%',#{name},'%')
+            and name like concat("%",#{name},"%");
         </if>
     </select>
     <select id="getUserByPage" resultMap="BaseResultMap">
         select *
-        from user where enabled=true
+        from user where id is not null
         <if test="name!=null and name!=''">
-            and name like concat('%',#{name},'%')
+            and name like concat("%",#{name},"%")
         </if>
-        limit #{offset},#{size}
+        limit #{offset},#{size};
     </select>
     <select id="getUserById" resultMap="BaseResultMap">
         select *
         from user
-        where id = #{id} and enabled=true;
+        where id = #{id};
     </select>
     <select id="getUserByUserName" resultMap="BaseResultMap">
         select *

@@ -57,6 +57,14 @@ public class UserService implements UserDetailsService {
         int result = userMapper.updateUser(user);
         return result==1?RespBean.ok("更新成功"):RespBean.error("更新失败");
     }
+
+    public RespBean getUserById(Integer id) {
+        User userById = userMapper.getUserById(id);
+        if(userById == null) {
+            return RespBean.error("用户不存在");
+        }
+        return RespBean.ok("查询成功",userById);
+    }
 }
 
 
