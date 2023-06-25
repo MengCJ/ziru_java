@@ -31,8 +31,8 @@
     </sql>
 <!--    添加房间-->
     <insert id="addRoom">
-        insert into room (building_no,unit_no,room_no,room_type,room_direction,rent_fee,property_fee,create_time,delete_flag)
-        values (#{buildingNo},#{unitNo},#{roomNo},#{roomType},#{roomDirection},#{rentFee},#{propertyFee},#{createTime},#{deleteFlag})
+        insert into room (rid,building_no,unit_no,room_no,room_type,room_direction,rent_fee,property_fee,create_time,delete_flag)
+        values (#{rid},#{buildingNo},#{unitNo},#{roomNo},#{roomType},#{roomDirection},#{rentFee},#{propertyFee},#{createTime},#{deleteFlag})
     </insert>
     <update id="deleteRoom">
         update room
@@ -77,8 +77,21 @@
 <!--    添加房间-->
     <select id="getRoomPage" resultMap="BaseResultMap">
         select a.* ,b.name
-        from room a ,residence b where a.rid = b.rid and a.delete_flag = 1 limit #{offset},#{size}
+        from room a ,residence b where a.rid = b.rid and a.delete_flag = 1
+        <if test="rid!=null and rid!=''">
+            and a.rid = #{rid}
+        </if>
+        <if test="roomType!=null and roomType!=''">
+            and a.room_type like concat("%",#{roomType},"%")
+        </if>
+        <if test="minRentFee!=null and minRentFee!=''">
+            and a.rent_fee &gt;= #{minRentFee}
+        </if>
+        <if test="maxRentFee!=null and maxRentFee!=''">
+            and a.rent_fee &lt;= #{maxRentFee}
+        </if>limit #{offset},#{size}
     </select>
+
     <select id="getRoomById" resultMap="BaseResultMap">
         select *
             from room where room_id = #{roomId} and delete_flag = 1

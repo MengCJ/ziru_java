@@ -5,29 +5,33 @@ import com.qfedu.springboot.entity.RespBean;
 import com.qfedu.springboot.entity.RespPageBean;
 import com.qfedu.springboot.entity.Room;
 import com.qfedu.springboot.mapper.RoomMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import javax.annotation.Resource;
 import java.util.Date;
 
 @Service
 public class RoomService {
 
-    @Autowired
+    @Resource
     RoomMapper roomMapper;
+
+
 
     public RespBean addRoom(Room room){
         room.setCreateTime(new Date());
         room.setDeleteFlag(Contants.UN_DELETE_FLAG);
-
+        System.out.println(room);
          int result = roomMapper.addRoom(room);
         return  result==1?RespBean.ok("添加成功"):RespBean.error("添加失败");
     }
 
-    public RespPageBean getRoomPage(Integer page, Integer size) {
+    public RespPageBean getRoomPage(Integer page, Integer size, String rid, String roomType, Integer minRentFee,Integer maxRentFee) {
         final RespPageBean respPageBean = new RespPageBean();
         respPageBean.setTotal(roomMapper.getTotal());
-        respPageBean.setData(roomMapper.getRoomPage((page-1)*size,size));
+
+
+        respPageBean.setData(roomMapper.getRoomPage((page-1)*size,size,rid,roomType,minRentFee,maxRentFee));
         return respPageBean;
     }
 

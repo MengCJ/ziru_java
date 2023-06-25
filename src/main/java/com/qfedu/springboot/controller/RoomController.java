@@ -1,6 +1,5 @@
 package com.qfedu.springboot.controller;
 
-import com.qfedu.springboot.config.Contants;
 import com.qfedu.springboot.entity.RespBean;
 import com.qfedu.springboot.entity.RespPageBean;
 import com.qfedu.springboot.entity.Room;
@@ -23,9 +22,19 @@ public class RoomController {
          return roomService.addRoom(room);
     }
     //分页查询的接口
-    @GetMapping
-    public RespPageBean getRoomPage(@RequestParam(defaultValue = "1") Integer page, @RequestParam(defaultValue = "10") Integer size){
-        return roomService.getRoomPage(page,size);
+    @GetMapping("/list")
+    public RespPageBean getRoomPage(@RequestParam(defaultValue = "1") Integer page,
+                                    @RequestParam(defaultValue = "10") Integer size,
+                                     String rid,
+                                     String roomType,
+                                     Integer minRentFee,
+                                    Integer maxRentFee
+                                    ){
+        System.out.println(page);
+        System.out.println(size);
+        System.out.println(minRentFee);
+        System.out.println(maxRentFee);
+        return roomService.getRoomPage(page,size,rid,roomType,minRentFee,maxRentFee);
     }
     //删除的接口
     @DeleteMapping("/{roomId}")

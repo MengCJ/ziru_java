@@ -1,6 +1,7 @@
 package com.qfedu.springboot.mapper;
 
 import com.qfedu.springboot.entity.Room;
+import org.apache.ibatis.annotations.Param;
 
 import java.util.List;
 
@@ -15,7 +16,13 @@ public interface RoomMapper {
 
     Integer getTotal();
 
-    List<Room> getRoomPage(int offset, Integer size);
+    List<Room> getRoomPage(
+            @Param("offset") int offset,
+            @Param("size") Integer size,
+            @Param("rid") String rid,
+            @Param("roomType") String roomType,
+            @Param("minRentFee") Integer minRentFee,
+            @Param("maxRentFee") Integer maxRentFee);
 
     Room getRoomById(Integer roomId);
 
