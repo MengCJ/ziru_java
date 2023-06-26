@@ -29,6 +29,10 @@ public interface RoomMapper {
     int deleteRoom(Integer roomId);
 
     int updataRoom(Room room);
+
+    int Online(Integer roomId);
+
+    int Offline(Integer roomId);
 }
 
 

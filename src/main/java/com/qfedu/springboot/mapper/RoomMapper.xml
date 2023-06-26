@@ -17,6 +17,7 @@
             <result property="createTime" column="create_time" jdbcType="TIMESTAMP"/>
             <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
             <result property="deleteFlag" column="delete_flag" jdbcType="INTEGER"/>
+            <result property="isOnline" column="isOnline" javaType="INTEGER"/>
             <association property="residence" javaType="com.qfedu.springboot.entity.Residence">
                     <result property="rid" column="rid"></result>
                     <result property="name" column="name"></result>
@@ -31,12 +32,12 @@
     </sql>
 <!--    添加房间-->
     <insert id="addRoom">
-        insert into room (rid,building_no,unit_no,room_no,room_type,room_direction,rent_fee,property_fee,create_time,delete_flag)
-        values (#{rid},#{buildingNo},#{unitNo},#{roomNo},#{roomType},#{roomDirection},#{rentFee},#{propertyFee},#{createTime},#{deleteFlag})
+        insert into room (rid,building_no,unit_no,room_no,room_type,room_direction,rent_fee,property_fee,create_time,delete_flag,isOnline)
+        values (#{rid},#{buildingNo},#{unitNo},#{roomNo},#{roomType},#{roomDirection},#{rentFee},#{propertyFee},#{createTime},#{deleteFlag},#{isOnline})
     </insert>
     <update id="deleteRoom">
         update room
-        set delete_flag=0 where room_id = #{roomId}
+        set delete_flag=0 , isOnline = 0 where room_id = #{roomId}
 
     </update>
     <update id="updataRoom">
@@ -68,6 +69,14 @@
             </if>
         </set>
         where room_id = #{roomId}
+    </update>
+<!--    上线-->
+    <update id="Online">
+        update room set isOnline = 1 where room_id = #{roomId}
+    </update>
+<!--    下线-->
+    <update id="Offline">
+        update room set isOnline = 0 where room_id = #{roomId}
     </update>
     <!--    查询房间的总数-->
     <select id="getTotal" resultType="java.lang.Integer">

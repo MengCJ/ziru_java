@@ -70,6 +70,8 @@ public class Room implements Serializable {
      */
     private Integer deleteFlag;
 
+    private Integer isOnline;
+
     private Residence residence;
 
     private static final long serialVersionUID = 1L;
@@ -242,6 +244,17 @@ public class Room implements Serializable {
         this.deleteFlag = deleteFlag;
     }
 
+    public Integer getIsOnline() {
+        return isOnline;
+    }
+
+    /**
+     *
+     */
+    public void setIsOnline(Integer isOnline) {
+        this.isOnline = isOnline;
+    }
+
     @Override
     public boolean equals(Object that) {
         if (this == that) {
@@ -265,7 +278,8 @@ public class Room implements Serializable {
             && (this.getPropertyFee() == null ? other.getPropertyFee() == null : this.getPropertyFee().equals(other.getPropertyFee()))
             && (this.getCreateTime() == null ? other.getCreateTime() == null : this.getCreateTime().equals(other.getCreateTime()))
             && (this.getUpdateTime() == null ? other.getUpdateTime() == null : this.getUpdateTime().equals(other.getUpdateTime()))
-            && (this.getDeleteFlag() == null ? other.getDeleteFlag() == null : this.getDeleteFlag().equals(other.getDeleteFlag()));
+            && (this.getDeleteFlag() == null ? other.getDeleteFlag() == null : this.getDeleteFlag().equals(other.getDeleteFlag()))
+            && (this.getIsOnline()==null ? other.getIsOnline()==null:this.getIsOnline().equals(other.getIsOnline()));
     }
 
     @Override
@@ -284,6 +298,7 @@ public class Room implements Serializable {
         result = prime * result + ((getCreateTime() == null) ? 0 : getCreateTime().hashCode());
         result = prime * result + ((getUpdateTime() == null) ? 0 : getUpdateTime().hashCode());
         result = prime * result + ((getDeleteFlag() == null) ? 0 : getDeleteFlag().hashCode());
+        result = prime * result + ((getIsOnline()==null)?0:getIsOnline().hashCode());
         return result;
     }
 
@@ -305,6 +320,7 @@ public class Room implements Serializable {
         sb.append(", createTime=").append(createTime);
         sb.append(", updateTime=").append(updateTime);
         sb.append(", deleteFlag=").append(deleteFlag);
+        sb.append(", isOnline = ").append(isOnline);
         sb.append(", serialVersionUID=").append(serialVersionUID);
         sb.append("]");
         return sb.toString();

@@ -33,7 +33,6 @@ public class UserService implements UserDetailsService {
     public RespBean addUser(User user) {
         String username = user.getUsername();
         User userByUserName = userMapper.getUserByUserName(username);
-        System.out.println(userByUserName);
         if (userByUserName == null) {
             user.setEnabled(Contants.ENABLED);
             int result = userMapper.addUser(user);

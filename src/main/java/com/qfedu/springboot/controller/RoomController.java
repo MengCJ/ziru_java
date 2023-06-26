@@ -30,10 +30,6 @@ public class RoomController {
                                      Integer minRentFee,
                                     Integer maxRentFee
                                     ){
-        System.out.println(page);
-        System.out.println(size);
-        System.out.println(minRentFee);
-        System.out.println(maxRentFee);
         return roomService.getRoomPage(page,size,rid,roomType,minRentFee,maxRentFee);
     }
     //删除的接口
@@ -51,6 +47,19 @@ public class RoomController {
     public RespBean updataRoom(@RequestBody Room room){
         return roomService.updataRoom(room);
     }
+
+    //上线接口
+    @PutMapping("/online/{roomId}")
+    public RespBean Online(@PathVariable Integer roomId){
+        return roomService.Online(roomId);
+    }
+    //下线接口
+
+    @PutMapping("/Offline/{roomId}")
+    public RespBean Offline(@PathVariable Integer roomId){
+        return  roomService.Offline(roomId);
+    }
+
 
 
 

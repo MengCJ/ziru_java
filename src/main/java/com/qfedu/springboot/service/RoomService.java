@@ -21,6 +21,7 @@ public class RoomService {
     public RespBean addRoom(Room room){
         room.setCreateTime(new Date());
         room.setDeleteFlag(Contants.UN_DELETE_FLAG);
+        room.setIsOnline(Contants.ISONLINE);
         System.out.println(room);
          int result = roomMapper.addRoom(room);
         return  result==1?RespBean.ok("添加成功"):RespBean.error("添加失败");
@@ -59,6 +60,22 @@ public class RoomService {
     }
 
 
+    public RespBean Online(Integer roomId) {
+        Room i = roomMapper.getRoomById(roomId);
+        if(i==null){
+            return RespBean.error("房间不存在");
+        }
 
+        int result = roomMapper.Online(roomId);
+        return result==1?RespBean.ok("上线成功"):RespBean.error("上线失败");
+    }
 
+    public RespBean Offline(Integer roomId) {
+        Room i = roomMapper.getRoomById(roomId);
+        if(i==null){
+            return RespBean.error("房间不存在");
+        }
+        int result = roomMapper.Offline(roomId);
+        return result==1?RespBean.ok("下线成功"):RespBean.error("下线失败");
+    }
 }

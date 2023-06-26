@@ -9,4 +9,6 @@ public interface Contants {
     Boolean ROLE_ENABLED = true;
     Boolean ROLE_UN_ENABLED = false;
 
+    int  ISONLINE = 1;
+    int UN_ISONLINE = 0;
 }
