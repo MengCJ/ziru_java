@@ -4,6 +4,7 @@
 <mapper namespace="com.qfedu.springboot.mapper.UserMapper">
     <resultMap id="BaseResultMap" type="com.qfedu.springboot.entity.User">
         <id property="id" column="id" jdbcType="INTEGER"/>
+        <result property="rid" column="rid" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="phone" column="phone" jdbcType="CHAR"/>
         <result property="telephone" column="telephone" jdbcType="VARCHAR"/>
@@ -13,10 +14,15 @@
         <result property="userface" column="userface" jdbcType="VARCHAR"/>
         <result property="remark" column="remark" jdbcType="VARCHAR"/>
         <result property="enabled" column="enabled" jdbcType="TINYINT"/>
+        <association property="role" javaType="com.qfedu.springboot.entity.Role">
+            <result property="rid" column="rid"></result>
+            <result property="nameZh" column="nameZh"></result>
+            <result property="enabled" column="enabled"></result>
+        </association>
     </resultMap>
     <insert id="addUser">
-        insert into user (name,phone,telephone,address,username,password,userface,remark,enabled)
-        values (#{name},#{phone},#{telephone},#{address},#{username},concat("{noop}",#{password}),#{userface},#{remark},#{enabled});
+        insert into user (name,phone,rid,telephone,address,username,password,userface,remark,enabled)
+        values (#{name},#{phone},#{rid},#{telephone},#{address},#{username},concat("{noop}",#{password}),#{userface},#{remark},#{enabled});
     </insert>
     <update id="updateUser">
         update user
@@ -26,6 +32,9 @@
             </if>
             <if test="phone!=null and phone!=''">
                 phone=#{phone},
+            </if>
+            <if test="rid!=null and rid!=''">
+                rid=#{rid},
             </if>
             <if test="telephone!=null and telephone!=''">
                 telephone=#{telephone},
@@ -65,17 +74,17 @@
         </if>
     </select>
     <select id="getUserByPage" resultMap="BaseResultMap">
-        select *
-        from user where id is not null
+        select u.*, r.*
+        from user u, role r where u.rid = r.rid and r.enabled = true
         <if test="name!=null and name!=''">
-            and name like concat("%",#{name},"%")
+            and u.name like concat("%",#{name},"%")
         </if>
         limit #{offset},#{size};
     </select>
     <select id="getUserById" resultMap="BaseResultMap">
-        select *
-        from user
-        where id = #{id};
+        select u.*, r.*
+        from user u, role r
+        where u.id = #{id} and u.rid = r.rid
     </select>
     <select id="getUserByUserName" resultMap="BaseResultMap">
         select *

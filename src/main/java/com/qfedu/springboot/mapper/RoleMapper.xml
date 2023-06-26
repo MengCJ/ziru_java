@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.qfedu.springboot.mapper.RoleMapper">
+    <resultMap id="BaseResultMap" type="com.qfedu.springboot.entity.Role">
+        <id property="rid" column="rid" jdbcType="INTEGER"/>
+        <result property="name" column="name" jdbcType="VARCHAR"/>
+        <result property="nameZh" column="nameZh" jdbcType="VARCHAR"/>
+        <result property="enabled" column="enabled" jdbcType="BOOLEAN"/>
+    </resultMap>
+    <insert id="addUser">
+        insert into role (name,nameZh,enabled)
+        values (#{name},#{nameZh},#{enabled});
+    </insert>
+    <update id="updateRole">
+        update role
+        <set>
+            <if test="name!=null and name!=''">
+                name=#{name},
+            </if>
+            <if test="nameZh!=null and nameZh!=''">
+                nameZh=#{nameZh},
+            </if>
+            <if test="enabled!=null">
+                enabled=#{enabled},
+            </if>
+        </set>
+        where rid=#{rid};
+    </update>
+    <delete id="deleteRoleById">
+        update role
+        set enabled=false
+        where rid=#{rid};
+    </delete>
+    <select id="getRoleList" resultMap="BaseResultMap">
+        select * from role where enabled=true
+    </select>
+    <select id="getAllRoleList" resultMap="BaseResultMap">
+        select * from role
+    </select>
+    <select id="getRoleByRoleNameZh" resultMap="BaseResultMap">
+        select *
+        from role
+        where nameZh = #{nameZh};
+    </select>
+    <select id="getRoleById" resultMap="BaseResultMap">
+        select * from role where rid=#{rid}
+    </select>
+    <select id="getRoleListByNameZh" resultType="java.lang.Integer">
+        select count(*)
+        from role where rid is not null
+        <if test="nameZh!=null and nameZh!=''">
+            and nameZh like concat("%",#{nameZh},"%");
+        </if>
+    </select>
+    <select id="getRoleByPage" resultMap="BaseResultMap">
+        select *
+        from role where rid is not null
+        <if test="nameZh!=null and nameZh!=''">
+            and nameZh like concat("%",#{nameZh},"%")
+        </if>
+        limit #{offset},#{size};
+    </select>
+</mapper>

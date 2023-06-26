@@ -9,6 +9,25 @@ import java.util.Collection;
 public class User implements UserDetails {
 
     private Integer id;
+    private Integer rid;
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
+    }
+
+    private Role role;
+    public Integer getRid() {
+        return rid;
+    }
+
+    public void setRid(Integer rid) {
+        this.rid = rid;
+    }
+
     private String name;
     private String phone;
     private String telephone;
