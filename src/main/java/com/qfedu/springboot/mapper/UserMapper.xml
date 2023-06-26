@@ -75,7 +75,7 @@
     </select>
     <select id="getUserByPage" resultMap="BaseResultMap">
         select u.*, r.*
-        from user u, role r where u.rid = r.rid and r.enabled = true
+        from user u, role r where u.rid = r.rid
         <if test="name!=null and name!=''">
             and u.name like concat("%",#{name},"%")
         </if>
