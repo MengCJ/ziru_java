@@ -11,6 +11,8 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.CredentialsExpiredException;
 import org.springframework.security.authentication.DisabledException;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityCustomizer;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -31,6 +33,17 @@ public class SecurityConfig {
      *
      * @return
      */
+
+    @Bean
+    WebSecurityCustomizer webSecurityCustomizer(){
+        return new WebSecurityCustomizer() {
+            @Override
+            public void customize(WebSecurity web) {
+                web.ignoring().mvcMatchers("/index.html","/css/**","/fonts/**","/js/**");
+            }
+        };
+    }
+
     @Bean
     SecurityFilterChain securityFilterChain(HttpSecurity http) throws
             Exception {
