@@ -39,7 +39,7 @@ public class SecurityConfig {
         return new WebSecurityCustomizer() {
             @Override
             public void customize(WebSecurity web) {
-                web.ignoring().mvcMatchers("/index.html","/css/**","/fonts/**","/js/**");
+                web.ignoring().mvcMatchers("/index.html","/favicon.ico","/css/**","/fonts/**","/js/**");
             }
         };
     }
